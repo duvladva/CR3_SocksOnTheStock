@@ -46,6 +46,7 @@ public class SocksStoreServiceImpl implements SocksStoreService {
         }
         Map<Socks, Integer> socksMap = socksRepository.getAll();
 
+        int total = 0;
         for (Map.Entry<Socks, Integer> socksItem : socksMap.entrySet()) {
             Socks socks = socksItem.getKey();
 
@@ -54,10 +55,10 @@ public class SocksStoreServiceImpl implements SocksStoreService {
                     && socks.getCottonPart() >= cottonMin
                     && socks.getCottonPart() <= cottonMax
             ) {
-                return socksItem.getValue();
+                total = total + socksItem.getValue();
             }
         }
-        return 0;
+        return total;
     }
 
     private void checkSocksBatch(SocksBatch socksBatch) {
